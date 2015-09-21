@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang='en'>
+<meta charset='utf-8'>
+<head>
+	<title>foryou后台管理</title>
+	<link rel='stylesheet' type='text/css' href='../css/bootstrap.min.css'>
+	<link rel="shortcut icon" href="../img/icon.png">
+	<script type='text/javascript' src="../js/bootstrap.min.js"></script>
+
+	
+	<style type="text/css">
+		.message{
+			color: red
+		}
+		#dropdownMenu1, [role=presentation]{
+			width:220px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+
+
+				<div class="modal show" id="loginModal" aria-hidden="true">
+					<div class="modal-header">
+						<h2>panda library管理系统</h2>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal" >
+							<div class="control-group">
+								<label class="control-label" for="phone">用户名</label>
+								<div class="controls">
+									<input type="text" id="phone" placeholder="Please Input Mobile">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="password">密码</label>
+								<div class="controls">
+									<input type="password" id="password"
+									placeholder="Please Input Password">
+								</div>
+							</div>
+							<div class="control-group" style="height:60px">
+								<label class="control-label" for="dropdownMenu1">角色</label>
+								<div class="controls">
+								<div class="dropdown">
+								<button type="button" class="btn dropdown-toggle btn-primary" id="dropdownMenu1" data-toggle="dropdown">
+								角色<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+									<li role="presentation">
+										<a role="menuitem" tabindex="-1" href="javascript:void(0)">管理员</a>
+									</li>
+									<li role="presentation">
+										<a role="menuitem" tabindex="-1" href="javascript:void(0)">学生</a>
+									</li>
+								</ul>
+							</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<div id="message" class="pull-left message"></div>
+						<button type="button" class="btn btn-primary" onclick="toLogin();">&nbsp;登录&nbsp;</button>
+						<a href="../foryou/user/forgetPassword.do" target="_blank"class="inline">Forget password?</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
