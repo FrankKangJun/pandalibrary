@@ -8,6 +8,8 @@ public interface AdminService {
 
 	Admin selectById(Map<String, Object> paramMap);
 
+	Integer updateLastLoginTime(Map<String, Object> paramMap);
+
 	
 
 

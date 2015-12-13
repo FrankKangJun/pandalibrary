@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.panda.mapper.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.panda.model.Comment" >
+    <id column="comment_id" property="commentId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="book_id" property="bookId" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="is_hidden" property="isHidden" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    comment_id, user_id, book_id, date, is_hidden, comment, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from Comment
+    where comment_id = #{commentId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from Comment
+    where comment_id = #{commentId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.panda.model.Comment" >
+    insert into Comment (comment_id, user_id, book_id, 
+      date, is_hidden, comment, 
+      is_delete)
+    values (#{commentId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{bookId,jdbcType=VARCHAR}, 
+      #{date,jdbcType=TIMESTAMP}, #{isHidden,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.panda.model.Comment" >
+    insert into Comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        comment_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="isHidden != null" >
+        is_hidden,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        #{commentId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bookId != null" >
+        #{bookId,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isHidden != null" >
+        #{isHidden,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.panda.model.Comment" >
+    update Comment
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bookId != null" >
+        book_id = #{bookId,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isHidden != null" >
+        is_hidden = #{isHidden,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where comment_id = #{commentId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.panda.model.Comment" >
+    update Comment
+    set user_id = #{userId,jdbcType=VARCHAR},
+      book_id = #{bookId,jdbcType=VARCHAR},
+      date = #{date,jdbcType=TIMESTAMP},
+      is_hidden = #{isHidden,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=VARCHAR}
+    where comment_id = #{commentId,jdbcType=VARCHAR}
+  </update>
+</mapper>

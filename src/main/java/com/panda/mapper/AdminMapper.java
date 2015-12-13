@@ -8,5 +8,7 @@ public interface AdminMapper {
 
 	Admin selectById(Map<String, Object> paramMap);
 
+	Integer updateLastLoginTime(Map<String, Object> paramMap);
+
 
 }

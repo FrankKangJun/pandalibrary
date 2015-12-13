@@ -16,5 +16,9 @@ public class AdminServiceImpl implements AdminService {
 	public Admin selectById(Map<String, Object> paramMap)
 	{
 		return adminMapper.selectById(paramMap);
+	}
+
+	public Integer updateLastLoginTime(Map<String, Object> paramMap) {
+		return adminMapper.updateLastLoginTime(paramMap);
 	}	
 }

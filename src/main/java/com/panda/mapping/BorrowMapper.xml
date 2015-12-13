@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.panda.mapper.BorrowMapper" >
+  <resultMap id="BaseResultMap" type="com.panda.model.Borrow" >
+    <id column="borrow_id" property="borrowId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="book_id" property="bookId" jdbcType="VARCHAR" />
+    <result column="borrow_date" property="borrowDate" jdbcType="DATE" />
+    <result column="return_date" property="returnDate" jdbcType="DATE" />
+    <result column="term" property="term" jdbcType="SMALLINT" />
+    <result column="fine" property="fine" jdbcType="REAL" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    borrow_id, user_id, book_id, borrow_date, return_date, term, fine, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from Borrow
+    where borrow_id = #{borrowId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from Borrow
+    where borrow_id = #{borrowId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.panda.model.Borrow" >
+    insert into Borrow (borrow_id, user_id, book_id, 
+      borrow_date, return_date, term, 
+      fine, is_delete)
+    values (#{borrowId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{bookId,jdbcType=VARCHAR}, 
+      #{borrowDate,jdbcType=DATE}, #{returnDate,jdbcType=DATE}, #{term,jdbcType=SMALLINT}, 
+      #{fine,jdbcType=REAL}, #{isDelete,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.panda.model.Borrow" >
+    insert into Borrow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="borrowId != null" >
+        borrow_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="borrowDate != null" >
+        borrow_date,
+      </if>
+      <if test="returnDate != null" >
+        return_date,
+      </if>
+      <if test="term != null" >
+        term,
+      </if>
+      <if test="fine != null" >
+        fine,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="borrowId != null" >
+        #{borrowId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bookId != null" >
+        #{bookId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowDate != null" >
+        #{borrowDate,jdbcType=DATE},
+      </if>
+      <if test="returnDate != null" >
+        #{returnDate,jdbcType=DATE},
+      </if>
+      <if test="term != null" >
+        #{term,jdbcType=SMALLINT},
+      </if>
+      <if test="fine != null" >
+        #{fine,jdbcType=REAL},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.panda.model.Borrow" >
+    update Borrow
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bookId != null" >
+        book_id = #{bookId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowDate != null" >
+        borrow_date = #{borrowDate,jdbcType=DATE},
+      </if>
+      <if test="returnDate != null" >
+        return_date = #{returnDate,jdbcType=DATE},
+      </if>
+      <if test="term != null" >
+        term = #{term,jdbcType=SMALLINT},
+      </if>
+      <if test="fine != null" >
+        fine = #{fine,jdbcType=REAL},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where borrow_id = #{borrowId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.panda.model.Borrow" >
+    update Borrow
+    set user_id = #{userId,jdbcType=VARCHAR},
+      book_id = #{bookId,jdbcType=VARCHAR},
+      borrow_date = #{borrowDate,jdbcType=DATE},
+      return_date = #{returnDate,jdbcType=DATE},
+      term = #{term,jdbcType=SMALLINT},
+      fine = #{fine,jdbcType=REAL},
+      is_delete = #{isDelete,jdbcType=VARCHAR}
+    where borrow_id = #{borrowId,jdbcType=VARCHAR}
+  </update>
+</mapper>

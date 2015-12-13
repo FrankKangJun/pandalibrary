@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.panda.mapper.UserMapper">
+<mapper namespace="com.panda.mapper.AdminMapper">
 
 <resultMap type="Admin" id="BaseResultMap">
 <id column="admin_id" property="adminId" jdbcType="VARCHAR"></id>
@@ -16,7 +16,7 @@
 <result column="is_delete" property="isDelete" jdbcType="VARCHAR"/>
 </resultMap>
 
-<sql id="Base_Column_LSist">
+<sql id="Base_Column_List">
 admin_id,admin_name,phone,email,last_login,portrait,password,type,is_delete
 </sql>
 
@@ -24,6 +24,14 @@ admin_id,admin_name,phone,email,last_login,portrait,password,type,is_delete
 		select
 		<include refid="Base_Column_List" />
 		from admin
-		where admin_id = #{adminId,jdbcType=VARCHAR}
-</select>        
+		where admin_id = #{id,jdbcType=VARCHAR} and is_delete = 0
+</select>   
+
+<update id="updateLastLoginTime">
+	update admin
+	set 
+	last_login=#{time,jdbcType=DATE}
+	where admin_id=#{id,jdbcType=VARCHAR} and is_delete = 0
+
+</update>     
 </mapper>

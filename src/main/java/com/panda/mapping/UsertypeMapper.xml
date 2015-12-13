@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.panda.mapper.UsertypeMapper">
+ 
+<resultMap type="com.panda.model.Usertype" id="BaseResultMap">
+<id column="type_id" property="typeId" jdbcType="VARCHAR"></id>
+<result column="type_name" property="typeName" jdbcType="VARCHAR"/>
+<result column="max_borrow_num" property="maxBorrowNum" jdbcType="INTEGER"/>
+<result column="is_delete" property="isDelete" jdbcType="VARCHAR"/>
+</resultMap>
+
+<sql id="Base_Conlumn_List_">
+type_id,type_name,max_borrow_num,is_delete
+</sql>
+
+<select id="getAllUserType" resultMap="BaseResultMap">
+select 
+<include refid="Base_Conlumn_List_"></include>
+from usertype where is_delete = 0
+</select>
+
+<insert id="addAUsertype">
+insert into 
+usertype(type_id,type_name,max_borrow_num,is_delete)
+values(#{typeId,jdbcType=VARCHAR},#{typeName,jdbcType=VARCHAR},#{maxBorrowNum,jdbcType=INTEGER},
+0)
+</insert>
+
+<update id="deleteAUsertype">
+update
+usertype 
+set 
+is_delete=1
+where 
+type_id=#{typeId,jdbcType=VARCHAR}
+</update>
+
+<update id="updateMaxBorrowNum">
+update
+usertype 
+set 
+max_borrow_num = #{maxBorrowNum,jdbcType=INTEGER}
+where 
+type_id=#{typeId,jdbcType=VARCHAR} and is_delete=0
+</update>
+
+</mapper>
