@@ -17,11 +17,15 @@
 
     </properties>
     <dependencies>
+	   
+    
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>1.2.2</version>
         </dependency>
+       
+     
 
         <!-- json数据 -->
 
@@ -46,6 +50,9 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.6</version>
         </dependency>
+        
+
+		
 
 
     <!-- j2ee需要的jar:start -->
@@ -162,6 +169,7 @@
             <artifactId>druid</artifactId>
             <version>1.0.2</version>
         </dependency>
+        
 
         <!-- 日志文件管理包 -->
         <!-- log start -->
@@ -180,6 +188,7 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
+     
         <!-- log end -->
     </dependencies>
   <build>

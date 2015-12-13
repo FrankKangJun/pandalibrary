@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.panda.mapper.BookMapper" >
+  <resultMap id="BaseResultMap" type="com.panda.model.Book" >
+    <id column="book_id" property="bookId" jdbcType="VARCHAR" />
+    <result column="book_name" property="bookName" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="press" property="press" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="publication_year" property="publicationYear" jdbcType="SMALLINT" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="book_type" property="bookType" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="REAL" />
+    <result column="category_id" property="categoryId" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="surplus" property="surplus" jdbcType="TINYINT" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  
+
+  <resultMap type="com.panda.model.ShortBook" id="ShortResultMap">
+  <id column="book_id" property="bookId" jdbcType="VARCHAR" />
+    <result column="book_name" property="bookName" jdbcType="VARCHAR" />
+     <result column="press" property="press" jdbcType="VARCHAR" />
+     <result column="surplus" property="surplus" jdbcType="TINYINT" />
+     <result column="remain_num" property="remainNum" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    book_id, book_name, img_url, author, press, version, publication_year, introduction, 
+    add_time, book_type, price, category_id, location, surplus, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from Book
+    where book_id = #{bookId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from Book
+    where book_id = #{bookId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.panda.model.Book" >
+    insert into Book (book_id, book_name, img_url, 
+      author, press, version, 
+      publication_year, introduction, add_time, 
+      book_type, price, category_id, 
+      location, surplus, is_delete
+      )
+    values (#{bookId,jdbcType=VARCHAR}, #{bookName,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{press,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{publicationYear,jdbcType=SMALLINT}, #{introduction,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{bookType,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, #{categoryId,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{surplus,jdbcType=TINYINT}, #{isDelete,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.panda.model.Book" >
+    insert into Book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="bookName != null" >
+        book_name,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="press != null" >
+        press,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="publicationYear != null" >
+        publication_year,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="bookType != null" >
+        book_type,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="surplus != null" >
+        surplus,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        #{bookId,jdbcType=VARCHAR},
+      </if>
+      <if test="bookName != null" >
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="press != null" >
+        #{press,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="publicationYear != null" >
+        #{publicationYear,jdbcType=SMALLINT},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookType != null" >
+        #{bookType,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="surplus != null" >
+        #{surplus,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.panda.model.Book" >
+    update Book
+    <set >
+      <if test="bookName != null" >
+        book_name = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="press != null" >
+        press = #{press,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="publicationYear != null" >
+        publication_year = #{publicationYear,jdbcType=SMALLINT},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookType != null" >
+        book_type = #{bookType,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="surplus != null" >
+        surplus = #{surplus,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where book_id = #{bookId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.panda.model.Book" >
+    update Book
+    set book_name = #{bookName,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      press = #{press,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      publication_year = #{publicationYear,jdbcType=SMALLINT},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      book_type = #{bookType,jdbcType=VARCHAR},
+      price = #{price,jdbcType=REAL},
+      category_id = #{categoryId,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      surplus = #{surplus,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=VARCHAR}
+    where book_id = #{bookId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAllBook" resultMap="ShortResultMap">
+	select book.book_id as book_id,book_name ,press,surplus,count([rank]) as remain_num 
+	from 
+	Book 
+	left join 
+	Books
+    on 
+    Book.book_id = Books.book_id and Books.is_delete = 0 and Books.status = 0 
+    where 
+    book.is_delete = 0 
+    group by 
+    book.book_id,book_name,press,surplus
+  </select>
+</mapper>

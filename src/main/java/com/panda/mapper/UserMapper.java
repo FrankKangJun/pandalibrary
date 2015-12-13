@@ -1,14 +1,27 @@
 package com.panda.mapper;
 
+import java.util.List;
 import java.util.Map;
 
-public interface UserMapper {
+import com.panda.model.User;
 
-    /**
-     * 添加新用户
-     * @param user
-     * @return
-     */
-    public int insertUser( Map<String,Object>paramMap);
+public interface UserMapper {
+    int deleteByPrimaryKey(String userId);
+
+    int insert(User user);
+
+    int insertSelective(User record);
+
+    User selectByPrimaryKey(String userId);
+
+    int updateByPrimaryKeySelective(User record);
+
+    int updateByPrimaryKey(User record);
+
+	List<User> getAllUser();
+
+	boolean updateUser(Map<String, Object> paramMap);
+
+	boolean deposit(Map<String, Object> paramMap);
 
 }

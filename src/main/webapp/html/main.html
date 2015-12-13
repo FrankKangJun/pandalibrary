@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang='en'>
+<meta charset='utf-8'>
+<head>
+<title>pandaLibrary后台管理</title>
+<link rel='stylesheet' type='text/css' href='../css/bootstrap.min.css'>
+<link rel='stylesheet' type='text/css' href='../css/style.css'>
+<link rel="shortcut icon" href="../img/icon.png">
+<script type='text/javascript' src="../js/jquery-1.7.2.min.js"></script>
+<script type='text/javascript' src="../js/bootstrap.min.js"></script>
+<script type='text/javascript' src="../js/main.js"></script>
+<style>
+a:hover {
+	text-decoration: none
+}
+.left{
+	width: 120px;
+	float:left;
+	margin-left:-22px;
+}
+.right{
+   float:right;
+   width:91%;
+   margin:10px auto;
+}
+#campusDropdown{
+	visibility:hidden
+}
+</style>
+
+</head>
+<body>
+	<header class='navbar blue blue2 navbar-fixed-top'>
+		<div class='navbar-inner'>
+			<div class='container-fluid'>
+				<a class='brand pull-left'><img class='icon-white icon-leaf'>pandaLibrary</a>
+				<ul class='nav pull-right'>
+				<li>
+		<div class="dropdown" id="campusDropdown">
+			<button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+				校区
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="dropdown-campus">
+				
+			</ul>
+		</div>
+				</li>
+					<li><a href="../foryou/user/logout.do" rel='tooltip'
+						title='退出'><i class='icon-white icon-off'></i></a></li>
+				</ul>
+			</div>
+		</div>
+	</header>
+
+	<section class='container-fluid pad20'>
+		<section class='row-fluid'>
+			<div class="sideBar left">
+				<br />
+				<ul>
+					<li>
+						<figure>
+							<a href="" target="content">
+								<i class="icon-off"></i>
+							</a>
+						</figure><hr/>
+					</li>
+					<li><figure>
+							<i class='icon-home'></i>
+							<a href=".html" target="content">首页&nbsp;&nbsp;</a>
+						</figure><hr /></li>
+					
+					<li><figure>
+							<a href=".html" target="content"> <i
+								class='icon-user'></i> 借书&nbsp;&nbsp;
+							</a>
+						</figure><hr />
+						</li>
+					
+					<li>
+						<figure>
+						<a href=".html" target="content">
+							<i class='icon-circle-arrow-down'></i>还书&nbsp;&nbsp;
+						</a>
+							
+						</figure>
+						<hr/>
+					</li>
+					
+					<li><figure>
+							<a href=".html" target="content"> <i
+								class='icon-eject'></i> 入库&nbsp;&nbsp;
+
+							</a>
+						</figure><hr/></li>
+					
+					<li><figure>
+							<a href=".html" target="content"> <i
+								class='icon-thumbs-up'></i> 图书管理&nbsp;&nbsp;
+
+							</a>
+						</figure><hr /></li>
+
+					
+					<li><figure>
+							<a href=".html" target="content"> <i
+								class='icon-fire'></i>用户管理&nbsp;&nbsp;
+							</a>
+						</figure><hr/></li>
+					
+					<li><figure>
+							<a href=".html" target="content"> <i
+								class='icon-th-large'></i> 借书记录&nbsp;&nbsp;
+							</a>
+						</figure><hr/></li>
+					<li><figure>
+							<a href=".html" target="content"> <i
+								class='icon-arrow-right'></i> 用户类型&nbsp;&nbsp;
+							</a>
+						</figure><hr /></li>
+					
+					<li><figure>
+							<a href=".html" target="content"><i
+								class='icon-filter'></i> 罚款规则 </a>
+						</figure><hr/></li>
+					<li><figure>
+							<a href=".html" target="content"><i
+								class='icon-question-sign'></i> 评论 </a>
+						</figure><hr/></li>
+				</ul>
+
+			</div>
+			<div class='right content'>
+				<iframe name="content" src="pages/main.html"
+					style="height:100%;width:100%" scroling="yes" frameborder="0"
+					border="0" marginwidth="0" marginheight="0"></iframe>
+			</div>
+		</section>
+	</section>
+</body>
+</html>

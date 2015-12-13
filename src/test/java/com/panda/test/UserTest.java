@@ -21,15 +21,6 @@ private UserService userService;
         userService = (UserService) context.getBean("UserService");
     }
 
-    @Test
-    public void addUser(){
-        Map<String,Object> paramMap=new HashMap<String, Object>();
-        paramMap.put("id", 1111);
-        paramMap.put("password", 1111);
-        paramMap.put("status", 1111);
-        paramMap.put("nickname", 1111);
-        paramMap.put("createTime", new Date());
 
-        System.out.println(userService.insertUser(paramMap));
-    }
+
 }

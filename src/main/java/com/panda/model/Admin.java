@@ -1,8 +1,5 @@
 package com.panda.model;
-
 import java.util.Date;
-
-
 public class Admin {
 	private String adminId;
 	private String adminName;
@@ -11,6 +8,13 @@ public class Admin {
 	private String password;
 	private String type;
 	private String isDelete;
+	private String phone;
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	private Date lastLogin;
 	public String getAdminId() {
 		return adminId;
