@@ -16,10 +16,11 @@
     from Books
     where rank = #{rank,jdbcType=VARCHAR} and is_delete = 0
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from Books
-    where rank = #{rank,jdbcType=VARCHAR} and is_delete = 0
-  </delete>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update  Books
+    set is_delete = 1 
+    where rank = #{rank,jdbcType=VARCHAR} 
+  </update>
   <insert id="insert" parameterType="com.panda.model.Books" >
     insert into Books (rank, book_id, status, 
       is_delete)

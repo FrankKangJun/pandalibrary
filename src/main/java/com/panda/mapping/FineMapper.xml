@@ -16,10 +16,13 @@
     from Fine
     where fine_id = #{fineId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from Fine
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update 
+    Fine
+    set
+    is_delete=1
     where fine_id = #{fineId,jdbcType=VARCHAR}
-  </delete>
+  </update>
   <insert id="insert" parameterType="com.panda.model.Fine" >
     insert into Fine (fine_id, book_type, price, 
       is_delete)
@@ -78,5 +81,23 @@
       price = #{price,jdbcType=REAL},
       is_delete = #{isDelete,jdbcType=VARCHAR}
     where fine_id = #{fineId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getAllFine" resultMap="BaseResultMap">
+	  select 
+	  <include refid="Base_Column_List"></include>
+	  from 
+	  fine
+	  where
+	  is_delete = 0
+  </select>
+  
+  <update id="updateFine">
+  update 
+  fine
+  set
+  price = #{price,jdbcType=REAL}
+  where 
+  fine_id = #{fineId,jdbcType=VARCHAR}  
   </update>
 </mapper>

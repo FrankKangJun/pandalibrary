@@ -10,4 +10,10 @@ public interface BooksService {
 
 	int changeStatus(Map<String, Object> paramMap);
 
+	void addAnExistingBook(Books books);
+
+	boolean deleteABook(String rank);
+
+
+
 }

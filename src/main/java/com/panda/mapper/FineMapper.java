@@ -1,5 +1,8 @@
 package com.panda.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import com.panda.model.Fine;
 
 public interface FineMapper {
@@ -14,4 +17,11 @@ public interface FineMapper {
     int updateByPrimaryKeySelective(Fine record);
 
     int updateByPrimaryKey(Fine record);
+
+	List<Fine> getAllFine();
+
+	int updateFine(Map<String, Object> paramMap);
+
+
+	
 }
