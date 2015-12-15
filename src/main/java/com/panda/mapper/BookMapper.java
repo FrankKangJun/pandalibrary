@@ -1,12 +1,13 @@
 package com.panda.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.panda.model.Book;
 import com.panda.model.ShortBook;
 
 public interface BookMapper {
-    int deleteByPrimaryKey(String bookId);
+    void deleteByPrimaryKey(String bookId);
 
     int insert(Book record);
 
@@ -19,4 +20,16 @@ public interface BookMapper {
     int updateByPrimaryKey(Book record);
 
 	List<ShortBook> selectAllBook();
+
+	boolean addabook(Map<String, Object> paramMap);
+
+	List<ShortBook> getBookById(String bookId);
+
+	List<ShortBook> getBookByName(String bookName);
+
+	List<ShortBook> getBookByPress(String press);
+
+	boolean decreaseSurplus(String bookId);
+
+	boolean updateABook(Map<String, Object> paramMap);
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 import com.panda.model.Books;
 
 public interface BooksMapper {
-    int deleteByPrimaryKey(String rank);
+    boolean deleteByPrimaryKey(String rank);
 
     int insert(Books record);
 

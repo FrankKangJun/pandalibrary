@@ -27,6 +27,19 @@ public class BooksServiceImpl implements BooksService{
 		return booksmapper.changeStatus(paramMap);
 	}
 
+	@Override
+	public void addAnExistingBook(Books books) {
+		booksmapper.insertSelective(books);	
+	}
+
+	@Override
+	public boolean deleteABook(String rank) {
+		// TODO Auto-generated method stub
+		return booksmapper.deleteByPrimaryKey(rank);
+	}
+
+
+
 
 
 }

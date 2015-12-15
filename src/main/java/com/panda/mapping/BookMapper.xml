@@ -37,11 +37,16 @@
     <include refid="Base_Column_List" />
     from Book
     where book_id = #{bookId,jdbcType=VARCHAR}
+    and is_delete=0
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from Book
-    where book_id = #{bookId,jdbcType=VARCHAR}
-  </delete>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update 
+    Book
+    set
+    is_delete = 1
+    where
+    book_id = #{bookId,jdbcType=VARCHAR}
+  </update>
   <insert id="insert" parameterType="com.panda.model.Book" >
     insert into Book (book_id, book_name, img_url, 
       author, press, version, 
@@ -232,4 +237,79 @@
     group by 
     book.book_id,book_name,press,surplus
   </select>
+  
+  <update id="addabook">
+    update 
+    book
+    set
+    surplus = surplus + 1
+    where 
+    book_id =#{bookId,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="getBookById" resultMap="ShortResultMap">
+	select book.book_id as book_id,book_name ,press,surplus,count([rank]) as remain_num 
+	from 
+	Book 
+	left join 
+	Books
+    on 
+    Book.book_id = Books.book_id and Books.is_delete = 0 and Books.status = 0 
+    where 
+    book.is_delete = 0 and book.book_id = #{bookId,jdbcType=VARCHAR}
+    group by 
+    book.book_id,book_name,press,surplus
+  </select>
+  
+   <select id="getBookByName" resultMap="ShortResultMap">
+	select book.book_id as book_id,book_name ,press,surplus,count([rank]) as remain_num 
+	from 
+	Book 
+	left join 
+	Books
+    on 
+    Book.book_id = Books.book_id and Books.is_delete = 0 and Books.status = 0 
+    where 
+    book.is_delete = 0 and book_name like #{bookName,jdbcType=VARCHAR}
+    group by 
+    book.book_id,book_name,press,surplus
+  </select>
+  
+   <select id="getBookByPress" resultMap="ShortResultMap">
+	select book.book_id as book_id,book_name ,press,surplus,count([rank]) as remain_num 
+	from 
+	Book 
+	left join 
+	Books
+    on 
+    Book.book_id = Books.book_id and Books.is_delete = 0 and Books.status = 0 
+    where 
+    book.is_delete = 0 and press like #{press,jdbcType=VARCHAR}
+    group by 
+    book.book_id,book_name,press,surplus
+  </select>
+  
+  <update id="decreaseSurplus">
+  update 
+  book
+  set 
+  surplus = surplus-1
+  where 
+  book_id = #{bookId,jdbcType = VARCHAR}
+  </update>
+  
+  <update id="updateABook">
+  update 
+  book
+  <set>
+   <if test="bookName != null" >
+        book_name = #{bookName,jdbcType=VARCHAR},
+      </if>
+        <if test="press != null" >
+        press = #{press,jdbcType=VARCHAR},
+      </if>
+  </set>
+  where book_id = #{bookId,jdbcType=VARCHAR}
+  
+  </update>
 </mapper>

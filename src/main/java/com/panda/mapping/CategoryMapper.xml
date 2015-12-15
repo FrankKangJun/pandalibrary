@@ -68,4 +68,13 @@
       is_delete = #{isDelete,jdbcType=VARCHAR}
     where category_id = #{categoryId,jdbcType=VARCHAR}
   </update>
+  
+  <select id="getAllCategory" resultMap="BaseResultMap">
+    select 
+  category_id, category_name, is_delete
+   from 
+   category
+   where 
+   is_delete = 0
+  </select>
 </mapper>

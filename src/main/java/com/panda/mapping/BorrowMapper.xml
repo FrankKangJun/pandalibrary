@@ -11,6 +11,10 @@
     <result column="fine" property="fine" jdbcType="REAL" />
     <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.panda.model.BorrowWithBookName" id="BigResultMap" extends="BaseResultMap">
+     <result column="book_name" property="BookName" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     borrow_id, user_id, book_id, borrow_date, return_date, term, fine, is_delete
   </sql>
@@ -125,4 +129,39 @@
       is_delete = #{isDelete,jdbcType=VARCHAR}
     where borrow_id = #{borrowId,jdbcType=VARCHAR}
   </update>
+  
+  <select id="getAllBorrow" resultMap="BigResultMap">
+  select     
+  borrow_id, user_id, borrow.book_id as book_id, borrow_date, return_date, term, fine,
+  book.book_name as book_name
+  from 
+  borrow 
+  left join
+  books
+  on 
+  borrow.book_id = books.rank
+  left join
+  book
+  on
+  books.book_id = book.book_id
+  where borrow.is_delete = 0  
+  </select>
+  
+   <select id="getAllBorrowByBookName" resultMap="BigResultMap">
+  select     
+  borrow_id, user_id, borrow.book_id as book_id, borrow_date, return_date, term, fine,
+  book.book_name as book_name
+  from 
+  borrow 
+  left join
+  books
+  on 
+  borrow.book_id = books.rank
+  left join
+  book
+  on
+  books.book_id = book.book_id
+  where borrow.is_delete = 0  
+  and book_name like #{tag}
+  </select>
 </mapper>
