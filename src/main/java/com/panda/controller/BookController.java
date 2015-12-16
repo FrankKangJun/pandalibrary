@@ -470,8 +470,7 @@ public class BookController {
 			{
 				map.put(Constants.STATUS, Constants.FAILURE);
 				map.put(Constants.MESSAGE, "修改失败");
-			}
-			
+			}		
 			
 			
 		} catch (Exception e) {

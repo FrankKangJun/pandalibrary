@@ -1,0 +1,21 @@
+a:hover {
+	text-decoration: none
+}
+.left{
+	width: 120px;
+	float:left;
+	margin-left:-22px;
+}
+.right{
+   float:right;
+   width:91%;
+   margin:10px auto;
+}
+#campusDropdown{
+	visibility:hidden
+}
+
+.iframe-area{
+	margin-left:40px;
+	margin-top:70px;
+}

@@ -6,7 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.panda.mapper.BorrowMapper;
 import com.panda.mapper.UserMapper;
+import com.panda.model.ShortBooks;
 import com.panda.model.User;
 import com.panda.service.UserService;
 
@@ -16,6 +18,9 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private BorrowMapper borrowMapper;
 
 
 	public int insertSelective(User user) {
@@ -46,6 +51,12 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean deposit(Map<String, Object> paramMap) {
 		return userMapper.deposit(paramMap);
+	}
+
+
+	@Override
+	public List<ShortBooks> getShortBooks(Map<String, Object> paramMap) {
+		return borrowMapper.getShortBooks(paramMap);
 	}
 
 

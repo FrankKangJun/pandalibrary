@@ -15,6 +15,12 @@
   <resultMap type="com.panda.model.BorrowWithBookName" id="BigResultMap" extends="BaseResultMap">
      <result column="book_name" property="BookName" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.panda.model.ShortBooks" id="ShortResultMap">
+  <id column="rank" property="rank" jdbcType="VARCHAR"/>
+   <result column="book_name" property="bookName" jdbcType="VARCHAR" />
+
+  </resultMap>
   <sql id="Base_Column_List" >
     borrow_id, user_id, book_id, borrow_date, return_date, term, fine, is_delete
   </sql>
@@ -163,5 +169,18 @@
   books.book_id = book.book_id
   where borrow.is_delete = 0  
   and book_name like #{tag}
+  </select>
+  
+  <select id="getShortBooks" resultMap="ShortResultMap">
+  select book_name,borrow.book_id as rank from borrow
+	left join 
+	books
+	on 
+	rank =borrow.book_id
+	left join 
+	book on
+	books.book_id=book.book_id
+	where user_id =#{userId,jdbcType=VARCHAR}
+  
   </select>
 </mapper>
