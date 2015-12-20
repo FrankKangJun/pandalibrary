@@ -28,6 +28,8 @@ public interface BookService {
 
 	boolean updateABook(Map<String, Object> paramMap);
 
+	String selectMaxBookId();
+
 	
 
 }

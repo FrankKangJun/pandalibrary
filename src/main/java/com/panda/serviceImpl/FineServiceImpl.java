@@ -40,6 +40,12 @@ public class FineServiceImpl implements FineService {
 	public int updateFine(Map<String, Object> paramMap) {
 		return fineMapper.updateFine(paramMap);
 	}
+
+	@Override
+	public Fine selectByBookType(String bookType) {
+		// TODO Auto-generated method stub
+		return fineMapper.selectByBookType(bookType);
+	}
 	
 
 }

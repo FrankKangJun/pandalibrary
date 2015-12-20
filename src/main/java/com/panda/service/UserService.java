@@ -21,4 +21,6 @@ public interface UserService {
 
 	public List<ShortBooks> getShortBooks(Map<String, Object> paramMap);
 
+	public void updateBalance(Map<String, Object> paramMap);
+
 }

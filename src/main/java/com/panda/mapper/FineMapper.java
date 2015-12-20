@@ -22,6 +22,8 @@ public interface FineMapper {
 
 	int updateFine(Map<String, Object> paramMap);
 
+	Fine selectByBookType(String bookType);
+
 
 	
 }

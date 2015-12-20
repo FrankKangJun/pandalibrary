@@ -77,6 +77,13 @@ public class BookServiceImpl implements BookService{
 	}
 
 
+	@Override
+	public String selectMaxBookId() {
+		// TODO Auto-generated method stub
+		return bookmapper.selectMaxBookId();
+	}
+
+
 
 
 }

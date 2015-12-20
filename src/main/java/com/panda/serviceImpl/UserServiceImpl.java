@@ -60,5 +60,13 @@ public class UserServiceImpl implements UserService{
 	}
 
 
+	@Override
+	public void updateBalance(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		userMapper.updateBalance(paramMap);
+		
+	}
+
+
 
 }

@@ -312,4 +312,11 @@
   where book_id = #{bookId,jdbcType=VARCHAR}
   
   </update>
+  
+  <select id="selectMaxBookId" resultType="java.lang.String">
+  select 
+  max(book_id) 
+  from 
+  book
+  </select>
 </mapper>

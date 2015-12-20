@@ -6,6 +6,14 @@ public class ShortUser {
 	private String userName;
 	private String userType;
 	private Float balance;
+
+	public Float getBalance() {
+		return balance;
+	}
+	public void setBalance(Float balance) {
+		this.balance = balance;
+	}
+
 	public String getUserId() {
 		return userId;
 	}

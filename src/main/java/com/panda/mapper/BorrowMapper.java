@@ -25,4 +25,6 @@ public interface BorrowMapper {
 	List<BorrowWithBookName> getAllBorrowByBookName(String tag);
 
 	List<ShortBooks> getShortBooks(Map<String, Object> paramMap);
+
+	void updateBorrow(Map<String, Object> paramMap);
 }

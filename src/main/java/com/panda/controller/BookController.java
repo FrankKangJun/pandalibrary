@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -230,7 +232,12 @@ public class BookController {
 					map.put(Constants.MESSAGE, "该书已借出或丢失");
 	    		}
 	    		else
-	    		{
+	    		{ 
+	    			Book book = new Book();
+	    			book = bookservice.selectBookById(books.getBookId());
+	    			if(true){
+	    				
+	    			}
 	    			paramMap.put("rank", bookId);
 	    			paramMap.put("status", 1);
 	    			int flag =  booksservice.changeStatus(paramMap);
@@ -254,8 +261,7 @@ public class BookController {
 	    			{
 	    				map.put(Constants.STATUS, Constants.FAILURE);
 	    				map.put(Constants.MESSAGE, "借书失败");
-	    			}
-	    			
+	    			}	    			
 	    		}
 	    	}
 			
@@ -304,30 +310,45 @@ public class BookController {
 	
 	/**
 	 * 添加一本已存在的书
+	 * @param num
 	 * @param bookId
 	 * @return
 	 */
 	@RequestMapping("/addAnExistingBook")
-	public @ResponseBody Map<String,Object> addAnExistingBook(@RequestParam String bookId)
+	public @ResponseBody Map<String,Object> addAnExistingBook(@RequestParam Integer num,
+			@RequestParam String bookId)
 	{
 		Map<String,Object> map = new HashMap<String,Object>();
 		Map<String,Object> paramMap = new HashMap<String,Object>();
 		try {
 			paramMap.put("bookId", bookId);
-			if(bookservice.addabook(paramMap))
+			Book book = new Book();
+			book = bookservice.selectBookById(bookId);
+			if(book == null)
 			{
+				map.put(Constants.STATUS, Constants.SUCCESS);
+				map.put(Constants.MESSAGE, "添加失败,该bookId不存在");	
+			}
+			else{
 				Books books = new Books();
 				books.setBookId(bookId);
 				books.setIsDelete("0");
-				books.setRank(bookId+System.currentTimeMillis());
-				booksservice.addAnExistingBook(books);
+				for(int i = 0;i<num;i++)
+				{
+					if(bookservice.addabook(paramMap))
+					{
+						books.setRank(bookId+System.currentTimeMillis());
+						booksservice.addAnExistingBook(books);
+					}
+					else
+					{
+						map.put(Constants.STATUS, Constants.SUCCESS);
+						map.put(Constants.MESSAGE, "添加失败");	
+					}
+				}
 				map.put(Constants.STATUS, Constants.SUCCESS);
-				map.put(Constants.MESSAGE, "添加成功");			
-			}
-			else
-			{
-				map.put(Constants.STATUS, Constants.SUCCESS);
-				map.put(Constants.MESSAGE, "添加失败");	
+				map.put(Constants.MESSAGE, "添加成功");
+			
 			}
 			
 		} catch (Exception e) {
@@ -355,25 +376,32 @@ public class BookController {
 	 * @return
 	 */
 	@RequestMapping ("/addABook")
-	public @ResponseBody Map<String,Object> addABook(@RequestParam String bookId,@RequestParam String bookName,@RequestParam String author
-			,@RequestParam String press,@RequestParam String version,@RequestParam Short publicationYear,@RequestParam String bookType,
-			@RequestParam Float price,@RequestParam String categoryId,@RequestParam String location,String introduction,
+	public @ResponseBody Map<String,Object> addABook(@RequestParam Byte num
+			,@RequestParam String bookName,@RequestParam String author
+			,@RequestParam String press,@RequestParam String version,
+			@RequestParam Short publicationYear,@RequestParam String bookType,
+			@RequestParam Float price,@RequestParam String categoryId,
+			@RequestParam String location,String introduction,
 			String imgUrl)
 			{
 		Map<String,Object> map = new HashMap<String,Object>();
 		Map<String,Object> paramMap = new HashMap<String,Object>();
 		try {
-			Date date=new Date();
-			Book book =new Book();
-			Book havebook =new Book();
-			Books books = new Books();
-			havebook = bookservice.selectBookById(bookId);
-			if(havebook != null)
+			
+			if(num == 0)
 			{
-				map.put(Constants.STATUS, Constants.SUCCESS);
-				map.put(Constants.MESSAGE, "添加失败,此bookId已存在");
+				
+				map.put(Constants.STATUS, Constants.FAILURE);
+				map.put(Constants.MESSAGE, "0本书添加个蛋蛋");		
 			}
-			else{					
+			else
+			{
+				String BookId = bookservice.selectMaxBookId();
+				Integer id = new Integer(BookId);
+				String bookId = String.format("%05d",id+1);
+				Date date=new Date();
+				Book book =new Book();
+				Books books = new Books();								
 				book.setAddTime(date);
 				book.setAuthor(author);
 				book.setBookId(bookId);
@@ -387,7 +415,7 @@ public class BookController {
 				book.setPress(press);
 				book.setPrice(price);
 				book.setPublicationYear(publicationYear);
-				book.setSurplus((byte) 1);
+				book.setSurplus(num);
 				book.setVersion(version);
 				books.setBookId(bookId);
 				books.setIsDelete("0");
@@ -395,8 +423,17 @@ public class BookController {
 				books.setStatus((byte) 0);
 				int flag1 = bookservice.addABook(book);
 				booksservice.addAnExistingBook(books);
+				if(num>1)
+				{
+					for(int i = 1;i<num ;i++)
+					{
+						books.setRank(bookId+System.currentTimeMillis());
+						booksservice.addAnExistingBook(books);
+					}
+				}
 				map.put(Constants.STATUS, Constants.SUCCESS);
-				map.put(Constants.MESSAGE, "添加成功");				
+				map.put(Constants.MESSAGE, "添加成功");
+				
 			}
 			
 		} catch (Exception e) {
@@ -407,6 +444,7 @@ public class BookController {
 		
 		return map;
 			}
+
 
 
 	/**
