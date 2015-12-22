@@ -89,4 +89,16 @@
   rank = #{rank,jdbcType=VARCHAR} 
   and is_delete = 0
   </update>
+  
+  <select id="getBooksById" resultMap="BaseResultMap">
+  select 
+  <include refid="Base_Column_List">
+  </include>
+  from 
+  books
+  where
+  book_id=#{bookId}
+  and is_delete = 0
+  
+  </select>
 </mapper>

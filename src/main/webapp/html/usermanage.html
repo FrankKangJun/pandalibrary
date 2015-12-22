@@ -11,37 +11,64 @@
 </head>
 <body>
 	<div class="iframe-area">
-		<p>1
-		</p>
-		<p>2
-		</p>
-		<p>3
-		</p>
-		<p>4
-		</p>
-		<p>5
-		</p>
-		<p>6
-		</p>
-		<p>7
-		</p>
-		<p>8
-		</p>
-		<p>9
-		</p>
-		<p>10
-		</p>
-		<p>11
-		</p>
-		<p>12
-		</p>
+		<table id="table" 
+					data-id-field="userId" 
+					data-toolbar="#toolbar"
+					data-search="true" data-show-refresh="true" data-show-toggle="true"
+					data-pagination="true" data-show-columns="true" data-height="80%"
+					data-click-to-select="true">
+			<thead>
+				<tr>
+					<th data-align="left" data-field="userId">用户ID</th>
+					<th data-align="left" data-field="userName" data-sortable="true">姓名</th>
+					<th data-align="left" data-field="sex" data-sortable="true">性别</th>
+					<th data-align="left" data-field="phone" data-sortable="true">联系方式</th>
+					<th data-align="left" data-field="email" data-sortable="true">邮箱</th>
+					<th data-align="left" data-field="registerTime" data-sortable="true">注册时间</th>
+					<th data-align="left" data-field="userType" data-sortable="true">用户级别</th>
+					<th data-align="left" data-field="balance" data-sortable="true">账户余额</th>
+				</tr>
+			</thead>
+		</table>
 	</div>
 
 
 	<script type='text/javascript' src="../js/jquery-1.7.2.min.js"></script>
 	<script type='text/javascript' src="../js/bootstrap.min.js"></script>
 	<script type='text/javascript' src="../js/bootstrap-table.min.js"></script>
-	<script type='text/javascript' src="../js/bootstrap-table.zh-CN.min.js"></script>
+	<script type='text/javascript' src="../js/bootstrap-table-zh-CN.min.js"></script>
 	<script type='text/javascript' src="../js/commonnav.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var $table = $("#table");
+			
+			$.ajax({
+				type:"POST",
+				url:"../../../pandastore/user/getAllUser.do",
+			    dataType:"json",
+				success:function(json){
+					if (json.status != 'failure') {
+						var users = json.users;
+						for (i = 0;i < users.length;i++) {
+							if (users[i].sex != '0') {
+								users[i].sex = '女';
+							}						
+							else {
+								users[i].sex = '男';
+							}
+						}
+						console.log(users);
+						$table.bootstrapTable({data:users});
+					}
+					else {                                           
+						alert(json.message);
+					}
+				}
+			});
+		});
+
+	</script>
+	
 </body>
 </html>

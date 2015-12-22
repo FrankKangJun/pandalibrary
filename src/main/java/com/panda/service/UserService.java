@@ -23,4 +23,6 @@ public interface UserService {
 
 	public void updateBalance(Map<String, Object> paramMap);
 
+	public int getMaxBorrowNum(Map<String, Object> paramMap);
+
 }

@@ -15,6 +15,11 @@ a:hover {
 	visibility:hidden
 }
 
+.home-area{
+	margin-left:100px;
+	margin-top:50px
+}
+
 .iframe-area{
 	margin-left:40px;
 	margin-top:70px;

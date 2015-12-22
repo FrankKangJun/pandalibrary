@@ -196,4 +196,13 @@
   where 
   borrow_id = #{borrowId,jdbcType=VARCHAR}
   </update>
+  
+  <select id="getBorrowedNum" resultType="java.lang.Integer">
+  select 
+  count(borrow_id)
+  from
+  borrow 
+  where [user_id]=#{userId,jdbcType=VARCHAR} 
+  and return_date is null
+  </select>
 </mapper>

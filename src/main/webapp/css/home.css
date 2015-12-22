@@ -1,0 +1,16 @@
+.roll-marquee{
+	width:100%;
+	color:#997fc8;
+	font-size:100px;
+	overflow:auto
+}
+
+.roll-marquee font{
+	 color:#999999;
+	 font-size:100px
+}
+
+.roll-text{
+	color:#997fcb;
+	font-size:100px
+}

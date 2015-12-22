@@ -15,4 +15,6 @@ public interface UsertypeMapper {
 
 	int updateMaxBorrowNum(Map<String, Object> paramMap);
 
+	int getMaxBorrowNum(Map<String, Object> paramMap);
+
 }

@@ -43,5 +43,11 @@ public class BorrowServiceImpl implements BorrowService{
 		borrowMapper.updateBorrow(paramMap);
 	}
 
+	@Override
+	public int getBorrowedNum(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return borrowMapper.getBorrowedNum(paramMap);
+	}
+
 
 }

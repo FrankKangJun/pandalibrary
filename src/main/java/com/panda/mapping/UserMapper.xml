@@ -214,11 +214,13 @@
   
   <select id="getAllUser" resultMap="BaseResultMap">
   	  select 
-  	  <include refid="Base_Column_List"></include>
+  	  user_id, user_name, sex, password, age, phone, email, register_time, category_id, 
+      type_name as user_type, status, last_visit, create_time, balance, [user].is_delete as is_delete
   	  from 
-  	  [user]
+  	  [user] left join 
+  	  usertype on [user].user_type = usertype.[type_id]
   	  where 
-  	  is_delete = 0
+  	  [user].is_delete = 0
   </select>
   
   <update id="updateUser">

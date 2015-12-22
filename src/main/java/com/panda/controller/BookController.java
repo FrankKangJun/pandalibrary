@@ -96,27 +96,20 @@ public class BookController {
 	public @ResponseBody Map<String,Object> getBookById(@RequestParam String bookId)
 	{
 		Map<String,Object> map = new HashMap<String,Object>();
-		List<ShortBook> shortbook = new ArrayList<ShortBook>();
 		try{
-			shortbook = bookservice.getBookById(bookId);
-			if(shortbook == null)
-			{
-				map.put(Constants.STATUS, Constants.FAILURE);
-				map.put(Constants.MESSAGE, "没有图书");
-			}
-			else
-			{
-				map.put("book",shortbook);
-				map.put(Constants.STATUS, Constants.SUCCESS);
-				map.put(Constants.MESSAGE, "获取图书列表成功");
-			}
+			Book book = new Book();
+			book = bookservice.selectBookById(bookId);
+			map.put("book",book);
+			map.put(Constants.STATUS, Constants.SUCCESS);
+			map.put(Constants.MESSAGE, "获取图书列表成功");
+
 			
 		}
 		catch(Exception e)
 		{
 			e.getStackTrace();
 			map.put(Constants.STATUS, Constants.FAILURE);
-			map.put(Constants.MESSAGE, "获取图书列表失败");
+			map.put(Constants.MESSAGE, "获取图书失败");
 			
 		}	
 		
@@ -219,49 +212,68 @@ public class BookController {
 	    	}
 	    	else
 	    	{
-	    		Books books = new Books();
-	    		books = booksservice.selectByPrimaryKey(bookId);
-	    		if(books == null)
+	    		paramMap.put("userId", userId);
+	    		paramMap.put("typeId",user.getUserType());
+	    		int borrowedNum = borrowservice.getBorrowedNum(paramMap);
+	    		int maxBorrowNum = userservice.getMaxBorrowNum(paramMap);
+	    		if(borrowedNum>=maxBorrowNum)
 	    		{
 	    			map.put(Constants.STATUS, Constants.FAILURE);
-					map.put(Constants.MESSAGE, "该书不存在");
-	    		}
-	    		else if(books.getStatus() != 0)
-	    		{
-	    			map.put(Constants.STATUS, Constants.FAILURE);
-					map.put(Constants.MESSAGE, "该书已借出或丢失");
+    				map.put(Constants.MESSAGE, "对不起，您已达最大借书数量上限");
 	    		}
 	    		else
-	    		{ 
-	    			Book book = new Book();
-	    			book = bookservice.selectBookById(books.getBookId());
-	    			if(true){
-	    				
-	    			}
-	    			paramMap.put("rank", bookId);
-	    			paramMap.put("status", 1);
-	    			int flag =  booksservice.changeStatus(paramMap);
-	    			String borrowId; 
-	    			borrowId=userId+System.currentTimeMillis();
-	    			Borrow borrow = new Borrow();
-	    			borrow.setBookId(books.getRank());
-	    			borrow.setBorrowDate(new Date());
-	    			borrow.setBorrowId(borrowId);
-	    			borrow.setFine((float) 0.0);
-	    			borrow.setIsDelete("0");
-	    			borrow.setUserId(userId);
-	    			borrow.setTerm((short) 60);
-	    			int flag2 = borrowservice.insertSelective(borrow);
-	    			if (flag2 == 1)
-	    			{
-	    				map.put(Constants.STATUS, Constants.SUCCESS);
-	    				map.put(Constants.MESSAGE, "借书成功");
-	    			}
-	    			else
-	    			{
-	    				map.put(Constants.STATUS, Constants.FAILURE);
-	    				map.put(Constants.MESSAGE, "借书失败");
-	    			}	    			
+	    		{
+		    		Books books = new Books();
+		    		books = booksservice.selectByPrimaryKey(bookId);
+		    		if(books == null)
+		    		{
+		    			map.put(Constants.STATUS, Constants.FAILURE);
+						map.put(Constants.MESSAGE, "该书不存在");
+		    		}
+		    		else if(books.getStatus() != 0)
+		    		{
+		    			map.put(Constants.STATUS, Constants.FAILURE);
+						map.put(Constants.MESSAGE, "该书已借出或丢失");
+		    		}
+		    		else
+		    		{ 
+		    			Book book = new Book();
+		    			book = bookservice.selectBookById(books.getBookId());
+		    			System.out.println(user.getUserType());
+		    			if(user.getUserType().equals("00001")||(user.getUserType().equals("00002")&&(book.getBookType().equals("00002")||book.getBookType().equals("00003")))
+		    					||book.getBookType().equals("00003")){  				
+			    			
+			    			paramMap.put("rank", bookId);
+			    			paramMap.put("status", 1);
+			    			int flag =  booksservice.changeStatus(paramMap);
+			    			String borrowId; 
+			    			borrowId=userId+System.currentTimeMillis();
+			    			Borrow borrow = new Borrow();
+			    			borrow.setBookId(books.getRank());
+			    			borrow.setBorrowDate(new Date());
+			    			borrow.setBorrowId(borrowId);
+			    			borrow.setFine((float) 0.0);
+			    			borrow.setIsDelete("0");
+			    			borrow.setUserId(userId);
+			    			borrow.setTerm((short) 60);
+			    			int flag2 = borrowservice.insertSelective(borrow);
+			    			if (flag2 == 1)
+			    			{
+			    				map.put(Constants.STATUS, Constants.SUCCESS);
+			    				map.put(Constants.MESSAGE, "借书成功");
+			    			}
+			    			else
+			    			{
+			    				map.put(Constants.STATUS, Constants.FAILURE);
+			    				map.put(Constants.MESSAGE, "借书失败");
+			    			}
+		    			}
+		    			else
+		    			{
+		    				map.put(Constants.STATUS, Constants.FAILURE);
+		    				map.put(Constants.MESSAGE, "你无法借这个类型的书");
+		    			}
+		    		}
 	    		}
 	    	}
 			
@@ -324,31 +336,39 @@ public class BookController {
 			paramMap.put("bookId", bookId);
 			Book book = new Book();
 			book = bookservice.selectBookById(bookId);
-			if(book == null)
+			if(num==0)
 			{
-				map.put(Constants.STATUS, Constants.SUCCESS);
-				map.put(Constants.MESSAGE, "添加失败,该bookId不存在");	
+				map.put(Constants.STATUS, Constants.FAILURE);
+				map.put(Constants.MESSAGE, "添加失败,请输入大于0的数量");
 			}
-			else{
-				Books books = new Books();
-				books.setBookId(bookId);
-				books.setIsDelete("0");
-				for(int i = 0;i<num;i++)
+			else
+			{
+				if(book == null)
 				{
-					if(bookservice.addabook(paramMap))
-					{
-						books.setRank(bookId+System.currentTimeMillis());
-						booksservice.addAnExistingBook(books);
-					}
-					else
-					{
-						map.put(Constants.STATUS, Constants.SUCCESS);
-						map.put(Constants.MESSAGE, "添加失败");	
-					}
+					map.put(Constants.STATUS, Constants.FAILURE);
+					map.put(Constants.MESSAGE, "添加失败,该bookId不存在");	
 				}
-				map.put(Constants.STATUS, Constants.SUCCESS);
-				map.put(Constants.MESSAGE, "添加成功");
-			
+				else{
+					Books books = new Books();
+					books.setBookId(bookId);
+					books.setIsDelete("0");
+					for(int i = 0;i<num;i++)
+					{
+						if(bookservice.addabook(paramMap))
+						{
+							books.setRank(bookId+System.currentTimeMillis());
+							booksservice.addAnExistingBook(books);
+						}
+						else
+						{
+							map.put(Constants.STATUS, Constants.SUCCESS);
+							map.put(Constants.MESSAGE, "添加失败");	
+						}
+					}
+					map.put(Constants.STATUS, Constants.SUCCESS);
+					map.put(Constants.MESSAGE, "添加成功");
+				
+				}
 			}
 			
 		} catch (Exception e) {
@@ -490,34 +510,74 @@ public class BookController {
 	}
 	
 	@RequestMapping ("/updateABook")
-	public @ResponseBody Map<String,Object>updateABook(@RequestParam String bookId,String bookName,String press)
+	public @ResponseBody Map<String,Object>updateABook(
+			@RequestParam String bookId,
+			@RequestParam String bookName,
+			@RequestParam String author	,@RequestParam String press,@RequestParam String version,
+			@RequestParam Short publicationYear,@RequestParam String bookType,
+			@RequestParam Float price,@RequestParam String categoryId,
+			@RequestParam String location,String introduction,
+			String imgUrl)
+			{
+			Map<String,Object> map = new HashMap<String,Object>();
+	Map<String,Object> paramMap = new HashMap<String,Object>();
+	try {
+			Book book =new Book();
+			Books books = new Books();								
+			book.setAuthor(author);
+			book.setBookId(bookId);
+			book.setBookName(bookName);
+			book.setBookType(bookType);
+			book.setCategoryId(categoryId);
+			book.setImgUrl(imgUrl);
+			book.setIntroduction(introduction);
+			book.setLocation(location);
+			book.setPress(press);
+			book.setPrice(price);
+			book.setPublicationYear(publicationYear);			
+			book.setVersion(version);
+            int flag = bookservice.updateByPrimaryKeySelective(book);
+            if(flag == 1)
+            {
+            	map.put(Constants.STATUS, Constants.SUCCESS);
+    			map.put(Constants.MESSAGE, "修改成功");
+            }
+            else
+            {
+        		map.put(Constants.STATUS, Constants.FAILURE);
+        		map.put(Constants.MESSAGE, "添加失败");
+            }			
+		}		
+	  catch (Exception e) {
+		e.getStackTrace();
+		map.put(Constants.STATUS, Constants.FAILURE);
+		map.put(Constants.MESSAGE, "添加失败");		
+	}
+	
+	return map;
+		}
+	
+	@RequestMapping ("/getBooksById")
+	public @ResponseBody Map<String,Object> getBooksById(@RequestParam String bookId)
 	{
-		
 		Map<String,Object> map = new HashMap<String,Object>();
 		Map<String,Object> paramMap = new HashMap<String,Object>();
 		try {
+			List<Books> books= new ArrayList<Books>();
 			paramMap.put("bookId", bookId);
-			paramMap.put("bookName", bookName);
-			paramMap.put("press", press);
-			if(bookservice.updateABook(paramMap))
-			{
-				map.put(Constants.STATUS, Constants.SUCCESS);
-				map.put(Constants.MESSAGE, "修改成功");	
-			}
-			else
-			{
-				map.put(Constants.STATUS, Constants.FAILURE);
-				map.put(Constants.MESSAGE, "修改失败");
-			}		
-			
+			books = bookservice.getBooksById(paramMap);
+			map.put("books", books);
+        	map.put(Constants.STATUS, Constants.SUCCESS);
+			map.put(Constants.MESSAGE, "成功");
 			
 		} catch (Exception e) {
+			// TODO: handle exception
 			e.getStackTrace();
 			map.put(Constants.STATUS, Constants.FAILURE);
-			map.put(Constants.MESSAGE, "修改失败");	
+			map.put(Constants.MESSAGE, "失败");	
 		}
-		return map;
-
 		
+		return map;
 	}
+	
 }

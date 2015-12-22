@@ -18,6 +18,8 @@ public interface BorrowService {
 
 	void updateBorrow(Map<String, Object> paramMap);
 
+	int getBorrowedNum(Map<String, Object> paramMap);
+
 	
 
 }

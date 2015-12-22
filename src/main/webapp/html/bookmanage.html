@@ -7,41 +7,172 @@
 <link rel='stylesheet' type='text/css' href='../css/bootstrap-table.min.css'>
 <link rel='stylesheet' type='text/css' href='../css/style.css'>
 <link rel='stylesheet' type='text/css' href='../css/commonnav.css'>
+<link rel='stylesheet' type='text/css' href='../css/bookmanage.css'>
 <link rel="shortcut icon" href="../img/icon.png">
 </head>
 <body>
 	<div class="iframe-area">
-		<p>1
-		</p>
-		<p>2
-		</p>
-		<p>3
-		</p>
-		<p>4
-		</p>
-		<p>5
-		</p>
-		<p>6
-		</p>
-		<p>7
-		</p>
-		<p>8
-		</p>
-		<p>9
-		</p>
-		<p>10
-		</p>
-		<p>11
-		</p>
-		<p>12
-		</p>
+		<table id="table" 
+					data-id-field="borrowId" 
+					data-toolbar="#toolbar"
+					data-search="true" data-show-refresh="true" data-show-toggle="true"
+					data-pagination="true" data-show-columns="true" data-height="80%"
+					data-click-to-select="true">
+			<thead>
+				<tr>
+					<th data-align="left" data-field="bookId">书籍ID</th>
+					<th data-align="left" data-field="bookName" data-sortable="true">书籍名称</th>
+					<th data-align="left" data-field="press" data-sortable="true">出版社</th>
+					<th data-align="left" data-field="surplus" data-sortable="true">藏书量</th>
+					<th data-align="left" data-field="remainNum" data-sortable="true">书库剩余</th>
+					<th data-align="left" data-field="homeImageManage"
+							 data-sortable="true" data-formatter="detailImageManageFormatter" data-events="detailImageOperateEvents">操作</th>
+				</tr>
+			</thead>
+		</table>
 	</div>
+	
+	<div class="modal fade float-detail-block" id="manageDetailImageModal" tabindex="-1" role="dialog"
+	aria-labelledby="manageDetailImageModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="manageDetailImageModalLabel">
+					信息修改
+				</h4>
+			</div>
+			<div class="revise-area">
+				<div class="form-group top-input">
+				    <label for="book-name">书籍名称：
+				    	<input type="text" class="form-control input-text" id="book-name" placeholder="请输入书籍名称">
+				    </label>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="book-img">书籍图片：
+			    <input type="file" class="form-control input-text" id="book-img"></label>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="author">书籍作者：
+				    <input type="text" class="form-control input-text" id="author" placeholder="请输入书籍作者"></label>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="publisher">出版社&nbsp&nbsp&nbsp：
+			    	<input type="text" class="form-control input-text" id="press" placeholder="请输入书籍出版社"></label>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="version">版&nbsp&nbsp&nbsp本&nbsp&nbsp&nbsp：
+				    <input type="text" class="form-control input-text" id="version" placeholder="请输入书籍版本"></label>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="publish-date">出版年月：
+				    <input type="text" class="form-control input-text" id="publish-date" placeholder="请输入书籍出版年月"></label>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="introduction">书籍简介：
+				    <input type="text" class="form-control input-text" id="introduction" placeholder="请输入书籍简介"></label>
+				</div>
+				<div class="form-group input-divider">
+					<label for="book-type">书籍级别：
+				    <select class="form-control input-text" id="book-type"> 
+				      	<option value="00001">政府人员可借</option> 
+					    <option value="00002">教授可借</option> 
+					    <option value="00003">人人可借</option> 
+				  	</select>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="price">书籍价格：
+				    <input type="text" class="form-control input-text" id="price" placeholder="请输入书籍价格"></label>
+				</div>
+				<div class="form-group input-divider">
+					<label for="book-category">书籍类型：
+				    <select class="form-control input-text" id="book-category"> 
+				      	<option value="001">历史</option> 
+					    <option value="002">计算机</option> 
+					    <option value="003">英语</option> 
+					    <option value="004">文学</option>
+					    <option value="005">数学</option> 
+					    <option value="006">医学</option>
+					    <option value="007">美食</option> 
+					    <option value="008">旅游</option>
+					    <option value="009">旅行</option> 
+					    <option value="010">艺术</option>
+					    <option value="011">其他</option>
+				  	</select>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="location">书籍位置：
+				    <input type="text" class="form-control input-text" id="location" placeholder="请输入书籍位置"></label>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="submit" class="btn btn-primary btn-return btn-revise">确定</button>
+						<input type="hidden" class="book-id-none" value="">
+				</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade float-detail-block" id="manageDeleteModal" tabindex="-1" role="dialog"
+	aria-labelledby="manageDeleteModal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="manageDeleteModal">
+					选择删除书籍的具体编号
+				</h4>
+			</div>
+			<div class="delete-area">
+				<div class="form-group input-divider">
+					<label for="delete-rank">书籍编号：
+				    <select class="form-control input-text" id="delete-rank"> 
+				  	</select>
+				</div>			
+			</div>
+			<div class="modal-body">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="submit" class="btn btn-primary btn-delete btn-delete">确定</button>
+				</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
 
 
 	<script type='text/javascript' src="../js/jquery-1.7.2.min.js"></script>
 	<script type='text/javascript' src="../js/bootstrap.min.js"></script>
 	<script type='text/javascript' src="../js/bootstrap-table.min.js"></script>
-	<script type='text/javascript' src="../js/bootstrap-table.zh-CN.min.js"></script>
+	<script type='text/javascript' src="../js/bootstrap-table-zh-CN.min.js"></script>
 	<script type='text/javascript' src="../js/commonnav.js"></script>
+	<script type='text/javascript' src="../js/bookmanage.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var $table = $("#table");
+			
+			$.ajax({
+				type:"POST",
+				url:"../../../pandastore/book/selectAllBook.do",
+			    dataType:"json",
+				success:function(json){
+					if (json.status != 'failure') {
+						var book = json.book;
+						console.log(book);
+						$table.bootstrapTable({data:book});
+					}
+					else {                                           
+						alert(json.message);
+					}
+				}
+			});
+		});
+
+	</script>
+	
 </body>
 </html>
