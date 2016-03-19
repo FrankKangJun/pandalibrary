@@ -56,9 +56,9 @@ body#landingBody{
 	-webkit-transition:color .2s ease-in-out;
 	cursor:pointer;
 }
-.navbar .brand:hover{
+/*.navbar .brand:hover{
 	color:rgba(0,215,249,1);
-}
+}*/
 
 .navbar .nav a:hover{
 	-webkit-transition:color .3s ease-in-out;
@@ -149,6 +149,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0956ae', end
 .navbar .nav i{
 	margin-top:1px;
 }
+.navbar .container-fluid span{
+    font-size:40px;
+    font-weight:bold;
+    font-family:隶书;
+}
+
 .navbar .nav:last-child i{
 	margin-top:2px;
 }
@@ -187,10 +193,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0956ae', end
     margin-bottom:2px;
 
 }
-.sideBar ul >li figure{
+.sideBar ul > li figure{
 	margin:0;
     padding:6px 0px 6px 14px;
     opacity:1;
+}
+.sideBar ul > li a{
+    font-weight: bold;
+    color:#424E5A;
+}
+.sideBar ul > li span{
+    float:right;
 }
 .sideBar ul > li figure:hover{
     background-color:#EDEDED;

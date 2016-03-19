@@ -1,5 +1,6 @@
 package com.panda.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import com.panda.model.Books;
@@ -18,4 +19,6 @@ public interface BooksMapper {
     int updateByPrimaryKey(Books record);
 
 	int changeStatus(Map<String, Object> paramMap);
+
+	List<Books> getBooksById(Map<String, Object> paramMap);
 }

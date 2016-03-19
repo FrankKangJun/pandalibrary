@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.panda.model.ShortBooks;
+import com.panda.model.ShortUser;
 import com.panda.model.User;
 import com.panda.service.UserService;
 import com.panda.tools.Constants;
@@ -110,7 +114,9 @@ public class UserController {
     		users = userservice.getAllUser();
     		if(users != null)
     		{
-    			map.put("users", users);
+    			JSONArray jsonArray=JSON.parseArray(JSON.toJSONStringWithDateFormat(users, "yyyy-MM-dd"));
+
+    			map.put("users", jsonArray);
     			map.put(Constants.STATUS, Constants.SUCCESS);
     			map.put(Constants.MESSAGE,"获取用户列表成功");
     		}
@@ -242,8 +248,28 @@ public class UserController {
 	{
 		Map<String,Object> paramMap = new HashMap<String,Object>();
 		Map<String,Object> map = new HashMap<String,Object>();
-		
-		
+		User user = new User();
+		user =userservice.selectByPrimaryKey(userId);
+		if(user == null)
+		{
+			map.put(Constants.STATUS, Constants.FAILURE);
+			map.put(Constants.MESSAGE, "用户不存在");
+		}
+		else
+		{
+			map.put("userId", user.getUserId());
+			map.put("userName",user.getUserName());
+			map.put("userType",user.getUserType());
+			map.put("balance",user.getBalance());
+			List<ShortBooks>shortbooks = new ArrayList<ShortBooks>();
+			paramMap.put("userId", userId);
+			shortbooks = userservice.getShortBooks(paramMap);
+			JSONArray jsonArray=JSON.parseArray(JSON.toJSONStringWithDateFormat(shortbooks, "yyyy-MM-dd"));
+			map.put("borrowNum", shortbooks.size());
+			map.put("borrowbooks", jsonArray);
+			map.put(Constants.STATUS, Constants.SUCCESS);
+			map.put(Constants.MESSAGE,"成功");
+		}
 		
 		return map;
 	}

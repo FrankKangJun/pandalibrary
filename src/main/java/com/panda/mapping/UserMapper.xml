@@ -25,16 +25,16 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from [User]
+    from User
     where user_id = #{userId,jdbcType=VARCHAR} and is_delete = 0
   </select>
   <update id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    update [User]
+    update User
     set is_delete = 1
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
   <insert id="insert" parameterType="com.panda.model.User" >
-    insert into [User] (user_id, user_name, sex, 
+    insert into User (user_id, user_name, sex, 
       password, age, phone, 
       email, register_time, category_id, 
       user_type, status, last_visit, 
@@ -49,7 +49,7 @@
      
   </insert>
   <insert id="insertSelective" parameterType="com.panda.model.User" >
-    insert into [User]
+    insert into User
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
         user_id,
@@ -146,7 +146,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.panda.model.User" >
-    update [User]
+    update User
     <set >
       <if test="userName != null" >
         user_name = #{userName,jdbcType=VARCHAR},
@@ -194,7 +194,7 @@
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.panda.model.User" >
-    update [User]
+    update User
     set user_name = #{userName,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
@@ -214,15 +214,17 @@
   
   <select id="getAllUser" resultMap="BaseResultMap">
   	  select 
-  	  <include refid="Base_Column_List"></include>
+  	  user_id, user_name, sex, password, age, phone, email, register_time, category_id, 
+      type_name as user_type, status, last_visit, create_time, balance, user.is_delete as is_delete
   	  from 
-  	  [user]
+  	  user left join 
+  	  usertype on user.user_type = usertype.type_id
   	  where 
-  	  is_delete = 0
+  	  user.is_delete = 0
   </select>
   
   <update id="updateUser">
-  update [user]
+  update user
   <set>
 	  <if test="userName!=null">
 	  user_name=#{userName,jdbcType=VARCHAR},
@@ -237,9 +239,18 @@
   
   <update id="deposit">
   update
-  [user]
+  user
   set balance +=  #{money}
   where user_id = #{userId,jdbcType=VARCHAR}
   and is_delete = 0
+  </update>
+  
+  <update id="updateBalance">
+   update 
+   user
+   set 
+   balance = balance -#{fine}
+   where 
+   user_id = #{userId,jdbcType=VARCHAR}
   </update>
 </mapper>

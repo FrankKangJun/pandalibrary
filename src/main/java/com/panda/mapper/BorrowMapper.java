@@ -1,9 +1,11 @@
 package com.panda.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.panda.model.Borrow;
 import com.panda.model.BorrowWithBookName;
+import com.panda.model.ShortBooks;
 
 public interface BorrowMapper {
     int deleteByPrimaryKey(String borrowId);
@@ -21,4 +23,10 @@ public interface BorrowMapper {
 	List<BorrowWithBookName> getAllBorrow();
 
 	List<BorrowWithBookName> getAllBorrowByBookName(String tag);
+
+	List<ShortBooks> getShortBooks(Map<String, Object> paramMap);
+
+	void updateBorrow(Map<String, Object> paramMap);
+
+	int getBorrowedNum(Map<String, Object> paramMap);
 }

@@ -46,4 +46,14 @@ where
 type_id=#{typeId,jdbcType=VARCHAR} and is_delete=0
 </update>
 
+<select id="getMaxBorrowNum" resultType="java.lang.Integer" >
+
+select 
+max_borrow_num 
+from 
+usertype where 
+type_id =#{typeId,jdbcType=VARCHAR}
+and is_delete =0
+</select>
+
 </mapper>

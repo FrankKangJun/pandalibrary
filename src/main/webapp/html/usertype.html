@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang='en'>
+<meta charset='utf-8'>
+<head>
+<title>pandaLibrary后台管理</title>
+<link rel='stylesheet' type='text/css' href='../css/bootstrap.min.css'>
+<link rel='stylesheet' type='text/css' href='../css/bootstrap-table.min.css'>
+<link rel='stylesheet' type='text/css' href='../css/style.css'>
+<link rel='stylesheet' type='text/css' href='../css/commonnav.css'>
+<link rel="shortcut icon" href="../img/icon.png">
+</head>
+<body>
+	<div class="iframe-area">
+		<table id="table" 
+					data-id-field="typeId" 
+					data-toolbar="#toolbar"
+					data-search="true" data-show-refresh="true" data-show-toggle="true"
+					data-pagination="true" data-show-columns="true" data-height="80%"
+					data-click-to-select="true">
+			<thead>
+				<tr>
+					<th data-align="left" data-field="typeId">用户类型ID</th>
+					<th data-align="left" data-field="typeName">用户类别名称</th>
+					<th data-align="left" data-field="maxBorrowNum" data-sortable="true">最多可借数量</th>
+				</tr>
+			</thead>
+		</table>	
+	</div>
+
+
+	<script type='text/javascript' src="../js/jquery-1.7.2.min.js"></script>
+	<script type='text/javascript' src="../js/bootstrap.min.js"></script>
+	<script type='text/javascript' src="../js/bootstrap-table.min.js"></script>
+	<script type='text/javascript' src="../js/bootstrap-table-zh-CN.min.js"></script>
+	<script type='text/javascript' src="../js/commonnav.js"></script>
+	
+
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var $table = $("#table");
+
+			$.ajax({
+				type:"POST",
+				url:"../../../pandastore/usertype/getAllUsertype.do",
+			    dataType:"json",
+				success:function(json){
+					if (json.status != 'failure') {
+						var usertypes = json.usertypes;
+						console.log(usertypes);
+						$table.bootstrapTable({data:usertypes});
+					}
+					else {
+						alert(json.message);
+					}
+				}
+			});
+		});
+
+	</script>
+
+
+</body>
+</html>

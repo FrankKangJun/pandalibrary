@@ -17,4 +17,6 @@ public interface FineService {
 
 	int updateFine(Map<String, Object> paramMap);
 
+	Fine selectByBookType(String bookType);
+
 }

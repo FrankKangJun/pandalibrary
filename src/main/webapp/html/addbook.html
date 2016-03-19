@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang='en'>
+<meta charset='utf-8'>
+<head>
+<title>pandaLibrary后台管理</title>
+<link rel='stylesheet' type='text/css' href='../css/bootstrap.min.css'>
+<link rel='stylesheet' type='text/css' href='../css/bootstrap-table.min.css'>
+<link rel='stylesheet' type='text/css' href='../css/style.css'>
+<link rel='stylesheet' type='text/css' href='../css/commonnav.css'>
+<link rel='stylesheet' type='text/css' href='../css/addbook.css'>
+<link rel="shortcut icon" href="../img/icon.png">
+<link rel="shortcut icon" href="../img/glyphicons-halflings.png">
+<link rel="shortcut icon" href="../img/glyphicons-halflings-white.png">
+
+</head>
+<body>
+	<div class="iframe-area form-left info-form-1">
+		<div class="check-box-1">
+			<div class="checkbox">
+				<label>
+				<input type="checkbox" class="input-box" checked="checked"> 增加已有书籍
+				</label>
+			</div>
+			<fieldset>
+				<div class="form-group top-input">
+				    <label for="bookId">书籍编号：
+				    	<input type="text" class="form-control input-text" id="bookId" placeholder="请输入书籍ID">
+				    </label>
+				</div>
+				<div class="form-group input-divider">
+					<label for="num">书籍数量：
+						<span class="icon-minus"></span>
+				    	<input type="text" class="form-control num-box input-text" id="num" value="0">
+				    	<span class="icon-plus"></span>
+				    </label>
+				</div>
+				<div class="put-on-right">
+					<button type="submit" class="btn btn-success" id="add">添加</button>
+					<button type="submit" class="btn btn-warning" id="reset">重置</button>
+					<button type="submit" class="btn btn-danger" id="cancel">放弃</button>
+				</div>
+			</fieldset>
+		</div>
+	</div>
+	<hr>
+	<div class="iframe-area form-left info-form-2">
+		<div class="check-box-2">
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" class="input-box" checked=""> 新增书籍
+				</label>
+			</div>
+			<fieldset disabled="disabled">
+				<div class="form-group top-input">
+				    <label for="book-name">书籍名称：
+				    	<input type="text" class="form-control input-text" id="book-name" placeholder="请输入书籍名称">
+				    </label>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="book-img">书籍图片：
+			    <input type="file" class="form-control input-text" id="book-img"></label>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="author">书籍作者：
+				    <input type="text" class="form-control input-text" id="author" placeholder="请输入书籍作者"></label>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="publisher">出版社&nbsp&nbsp&nbsp：
+			    	<input type="text" class="form-control input-text" id="publisher" placeholder="请输入书籍出版社"></label>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="version">版&nbsp&nbsp&nbsp本&nbsp&nbsp&nbsp：
+				    <input type="text" class="form-control input-text" id="version" placeholder="请输入书籍版本"></label>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="publish-date">出版年月：
+				    <input type="text" class="form-control input-text" id="publish-date" placeholder="请输入书籍出版年月"></label>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="introduction">书籍简介：
+				    <input type="text" class="form-control input-text" id="introduction" placeholder="请输入书籍简介"></label>
+				</div>
+				<div class="form-group input-divider">
+					<label for="book-type">书籍级别：
+				    <select class="form-control input-text" id="book-type"> 
+				      	<option value="00001">政府人员可借</option> 
+					    <option value="00002">教授可借</option> 
+					    <option value="00003">人人可借</option> 
+				  	</select>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="price">书籍价格：
+				    <input type="text" class="form-control input-text" id="price" placeholder="请输入书籍价格"></label>
+				</div>
+				<div class="form-group input-divider">
+					<label for="book-category">书籍类型：
+				    <select class="form-control input-text" id="book-category"> 
+				      	<option value="001">历史</option> 
+					    <option value="002">计算机</option> 
+					    <option value="003">英语</option> 
+					    <option value="004">文学</option>
+					    <option value="005">数学</option> 
+					    <option value="006">医学</option>
+					    <option value="007">美食</option> 
+					    <option value="008">旅游</option>
+					    <option value="009">旅行</option> 
+					    <option value="010">艺术</option>
+					    <option value="011">其他</option>
+				  	</select>
+				</div>
+				<div class="form-group input-divider">
+				    <label for="location">书籍位置：
+				    <input type="text" class="form-control input-text" id="location" placeholder="请输入书籍位置"></label>
+				</div>
+				<div class="form-group input-divider">
+					<label for="num">书籍数量：
+						<span class="icon-minus"></span>
+				    	<input type="text" class="form-control num-box input-text" id="num" value="0">
+				    	<span class="icon-plus"></span>
+				    </label>
+				</div>
+				<div class="put-on-right">
+					<button type="submit" class="btn btn-success" id="add" disabled="disabled">添加</button>
+					<button type="submit" class="btn btn-warning" id="reset" disabled="disabled">重置</button>
+					<button type="submit" class="btn btn-danger" id="cancel" disabled="disabled">放弃</button>
+				</div>
+			</fieldset>
+		</div>
+	</div>
+
+
+	<script type='text/javascript' src="../js/jquery-1.7.2.min.js"></script>
+	<script type='text/javascript' src="../js/bootstrap.min.js"></script>
+	<script type='text/javascript' src="../js/bootstrap-table.min.js"></script>
+	<script type='text/javascript' src="../js/bootstrap-table-zh-CN.min.js"></script>
+	<script type='text/javascript' src="../js/commonnav.js"></script>
+	<script type='text/javascript' src="../js/addbook.js"></script>
+</body>
+</html>

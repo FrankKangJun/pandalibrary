@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang='en'>
+<meta charset='utf-8'>
+<head>
+<title>pandaLibrary后台管理</title>
+<link rel='stylesheet' type='text/css' href='../css/bootstrap.min.css'>
+<link rel='stylesheet' type='text/css' href='../css/bootstrap-table.min.css'>
+<link rel='stylesheet' type='text/css' href='../css/style.css'>
+<link rel='stylesheet' type='text/css' href='../css/commonnav.css'>
+<link rel='stylesheet' type='text/css' href='../css/returnbook.css'>
+<link rel="shortcut icon" href="../img/icon.png">
+</head>
+<body>
+	<div class="iframe-area">
+		<div class="form-group top-input">
+			<label for="user-id">用户ID：
+				<input type="text" class="form-control input-text" id="user-id" placeholder="请输入用户ID">
+			</label>
+		</div>
+		<div class="put-on-right">
+			<button type="submit" class="btn btn-info" id="get-info">详情</button>
+		</div>
+	</div>
+	<hr>
+	<div class="iframe-table none">
+		<table id="table" 
+					data-id-field="borrowId" 
+					data-toolbar="#toolbar"
+					data-search="true" data-show-refresh="true" data-show-toggle="true"
+					data-pagination="true" data-show-columns="true" data-height="80%"
+					data-click-to-select="true">
+			<thead>
+				<tr>
+					<th data-align="left" data-field="borrowId">借阅号</th>
+					<th data-align="left" data-field="bookName">书籍名称</th>
+					<th data-align="left" data-field="press">出版社</th>
+					<th data-align="left" data-field="borrowDate" data-sortable="true">借书时间</th>
+					<th data-align="left" data-field="term">借期</th>
+					<th data-align="left" data-field="homeImageManage"
+							 data-sortable="true" data-formatter="detailImageManageFormatter" data-events="detailImageOperateEvents">归还书籍</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	
+	<div class="modal fade float-detail-block" id="manageDetailImageModal" tabindex="-1" role="dialog"
+	aria-labelledby="manageDetailImageModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="manageDetailImageModalLabel">
+					确定归还此书吗？
+				</h4>
+			</div>
+			
+			<div class="modal-body">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="submit" class="btn btn-primary btn-return">确定</button>
+					<label class="none">账户余额不足，请充值！</label>
+					<input type="hidden" class="rank-none" value="" />
+				</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+
+	<script type='text/javascript' src="../js/jquery-1.7.2.min.js"></script>
+	<script type='text/javascript' src="../js/bootstrap.min.js"></script>
+	<script type='text/javascript' src="../js/bootstrap-table.min.js"></script>
+	<script type='text/javascript' src="../js/bootstrap-table-zh-CN.min.js"></script>
+	<script type='text/javascript' src="../js/commonnav.js"></script>
+	<script type='text/javascript' src="../js/returnbook.js"></script>
+</body>
+</html>

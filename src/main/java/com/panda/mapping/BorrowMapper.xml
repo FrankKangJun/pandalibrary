@@ -5,8 +5,8 @@
     <id column="borrow_id" property="borrowId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="book_id" property="bookId" jdbcType="VARCHAR" />
-    <result column="borrow_date" property="borrowDate" jdbcType="DATE" />
-    <result column="return_date" property="returnDate" jdbcType="DATE" />
+    <result column="borrow_date" property="borrowDate" jdbcType="TIMESTAMP" />
+    <result column="return_date" property="returnDate" jdbcType="TIMESTAMP" />
     <result column="term" property="term" jdbcType="SMALLINT" />
     <result column="fine" property="fine" jdbcType="REAL" />
     <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
@@ -14,6 +14,15 @@
   
   <resultMap type="com.panda.model.BorrowWithBookName" id="BigResultMap" extends="BaseResultMap">
      <result column="book_name" property="BookName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.panda.model.ShortBooks" id="ShortResultMap">
+  <id column="rank" property="rank" jdbcType="VARCHAR"/>
+   <result column="book_name" property="bookName" jdbcType="VARCHAR" />
+   <result column="term" property="term" jdbcType="SMALLINT" />
+    <result column="borrow_date" property="borrowDate" jdbcType="TIMESTAMP" />
+    <result column="press" property="press" jdbcType="VARCHAR" ></result>
+    <result column="borrow_id" property="borrowId" jdbcType="VARCHAR"   />
   </resultMap>
   <sql id="Base_Column_List" >
     borrow_id, user_id, book_id, borrow_date, return_date, term, fine, is_delete
@@ -23,6 +32,7 @@
     <include refid="Base_Column_List" />
     from Borrow
     where borrow_id = #{borrowId,jdbcType=VARCHAR}
+    and is_delete = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from Borrow
@@ -33,7 +43,7 @@
       borrow_date, return_date, term, 
       fine, is_delete)
     values (#{borrowId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{bookId,jdbcType=VARCHAR}, 
-      #{borrowDate,jdbcType=DATE}, #{returnDate,jdbcType=DATE}, #{term,jdbcType=SMALLINT}, 
+      #{borrowDate,jdbcType=TIMESTAMP}, #{returnDate,jdbcType=TIMESTAMP}, #{term,jdbcType=SMALLINT}, 
       #{fine,jdbcType=REAL}, #{isDelete,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.panda.model.Borrow" >
@@ -75,10 +85,10 @@
         #{bookId,jdbcType=VARCHAR},
       </if>
       <if test="borrowDate != null" >
-        #{borrowDate,jdbcType=DATE},
+        #{borrowDate,jdbcType=TIMESTAMP},
       </if>
       <if test="returnDate != null" >
-        #{returnDate,jdbcType=DATE},
+        #{returnDate,jdbcType=TIMESTAMP},
       </if>
       <if test="term != null" >
         #{term,jdbcType=SMALLINT},
@@ -101,10 +111,10 @@
         book_id = #{bookId,jdbcType=VARCHAR},
       </if>
       <if test="borrowDate != null" >
-        borrow_date = #{borrowDate,jdbcType=DATE},
+        borrow_date = #{borrowDate,jdbcType=TIMESTAMP},
       </if>
       <if test="returnDate != null" >
-        return_date = #{returnDate,jdbcType=DATE},
+        return_date = #{returnDate,jdbcType=TIMESTAMP},
       </if>
       <if test="term != null" >
         term = #{term,jdbcType=SMALLINT},
@@ -122,8 +132,8 @@
     update Borrow
     set user_id = #{userId,jdbcType=VARCHAR},
       book_id = #{bookId,jdbcType=VARCHAR},
-      borrow_date = #{borrowDate,jdbcType=DATE},
-      return_date = #{returnDate,jdbcType=DATE},
+      borrow_date = #{borrowDate,jdbcType=TIMESTAMP},
+      return_date = #{returnDate,jdbcType=TIMESTAMP},
       term = #{term,jdbcType=SMALLINT},
       fine = #{fine,jdbcType=REAL},
       is_delete = #{isDelete,jdbcType=VARCHAR}
@@ -163,5 +173,36 @@
   books.book_id = book.book_id
   where borrow.is_delete = 0  
   and book_name like #{tag}
+  </select>
+  
+  <select id="getShortBooks" resultMap="ShortResultMap">
+  select book_name,borrow.book_id as rank,borrow.borrow_date as borrow_date,term,press,borrow_id from borrow
+	left join 
+	books
+	on 
+	rank =borrow.book_id
+	left join 
+	book on
+	books.book_id=book.book_id
+	where user_id =#{userId,jdbcType=VARCHAR} and borrow.is_delete = 0  and return_date is null
+  </select>
+  
+  <update id="updateBorrow">
+  update 
+  borrow
+  set
+  return_date=#{returnDate,jdbcType=VARCHAR},
+  fine = #{fine}
+  where 
+  borrow_id = #{borrowId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getBorrowedNum" resultType="java.lang.Integer">
+  select 
+  count(borrow_id)
+  from
+  borrow 
+  where user_id=#{userId,jdbcType=VARCHAR} 
+  and return_date is null
   </select>
 </mapper>

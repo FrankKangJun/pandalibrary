@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.panda.model.Book;
+import com.panda.model.Books;
 import com.panda.model.ShortBook;
 
 public interface BookService {
@@ -27,6 +28,14 @@ public interface BookService {
 	void deleteABook(String bookId);
 
 	boolean updateABook(Map<String, Object> paramMap);
+
+	String selectMaxBookId();
+
+	int updateByPrimaryKeySelective(Book book);
+
+	List<Books> getBooksById(Map<String, Object> paramMap);
+
+
 
 	
 

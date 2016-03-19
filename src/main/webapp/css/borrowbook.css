@@ -1,0 +1,28 @@
+.put-on-right{
+	margin-top:20px;
+	margin-left:225px
+}
+
+.input-text{
+	display:inline-block;
+	*display:inline;
+	margin-bottom:0;
+	*zoom:1
+}
+
+.top-input{
+	margin-top:30px
+}
+
+.input-divider{
+	margin-top:20px	
+}
+
+.iframe-table{
+	margin-left:40px;
+	margin-top:20px;
+}
+
+.none{
+	display:none
+}

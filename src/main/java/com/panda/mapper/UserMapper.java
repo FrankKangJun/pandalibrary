@@ -24,4 +24,6 @@ public interface UserMapper {
 
 	boolean deposit(Map<String, Object> paramMap);
 
+	void updateBalance(Map<String, Object> paramMap);
+
 }

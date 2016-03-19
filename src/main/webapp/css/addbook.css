@@ -1,0 +1,29 @@
+.form-left{
+	margin-left:350px;
+	font-size:24px
+}
+
+.top-input{
+	margin-top:30px
+}
+
+.input-divider{
+	margin-top:20px	
+}
+
+.put-on-right{
+	margin-top:40px;
+	margin-left:140px
+}
+
+.num-box{
+	width:25px;
+	text-align:center
+}
+
+.input-text{
+	display:inline-block;
+	*display:inline;
+	margin-bottom:0;
+	*zoom:1
+}

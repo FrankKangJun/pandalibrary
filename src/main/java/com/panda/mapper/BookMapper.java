@@ -32,4 +32,6 @@ public interface BookMapper {
 	boolean decreaseSurplus(String bookId);
 
 	boolean updateABook(Map<String, Object> paramMap);
+
+	String selectMaxBookId();
 }

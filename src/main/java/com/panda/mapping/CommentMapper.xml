@@ -114,4 +114,13 @@
       is_delete = #{isDelete,jdbcType=VARCHAR}
     where comment_id = #{commentId,jdbcType=VARCHAR}
   </update>
+  
+  <select id="getAllComment" resultMap="BaseResultMap">
+    select 
+    comment_id, user_id, book_name as book_id, date, is_hidden, comment
+    from comment
+    left join book
+    on book.book_id = comment.book_id
+    where comment.is_delete =0
+  </select>
 </mapper>

@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.panda.mapper.BookMapper;
+import com.panda.mapper.BooksMapper;
 import com.panda.model.Book;
+import com.panda.model.Books;
 import com.panda.model.ShortBook;
 import com.panda.service.BookService;
 
@@ -15,6 +17,9 @@ import com.panda.service.BookService;
 public class BookServiceImpl implements BookService{
 	@Autowired
 	private	BookMapper bookmapper;
+	
+	@Autowired 
+	private	BooksMapper booksmapper;
 
 
 	public List<ShortBook> selectAllBook() {
@@ -75,6 +80,30 @@ public class BookServiceImpl implements BookService{
 		// TODO Auto-generated method stub
 		return bookmapper.updateABook(paramMap);
 	}
+
+
+	@Override
+	public String selectMaxBookId() {
+		// TODO Auto-generated method stub
+		return bookmapper.selectMaxBookId();
+	}
+
+
+	@Override
+	public int updateByPrimaryKeySelective(Book book) {
+		// TODO Auto-generated method stub
+		return bookmapper.updateByPrimaryKeySelective(book);
+	}
+
+
+	@Override
+	public List<Books> getBooksById(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return booksmapper.getBooksById(paramMap);
+	}
+
+
+
 
 
 

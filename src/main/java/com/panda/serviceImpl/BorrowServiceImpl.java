@@ -1,6 +1,7 @@
 package com.panda.serviceImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,4 +30,24 @@ public class BorrowServiceImpl implements BorrowService{
 	public List<BorrowWithBookName> getAllBorrowByBookName(String tag) {
 		return borrowMapper.getAllBorrowByBookName(tag);
 	}
+
+	@Override
+	public Borrow selectByPrimaryKey(String borrowId) {
+		// TODO Auto-generated method stub
+		return borrowMapper.selectByPrimaryKey(borrowId);
+	}
+
+	@Override
+	public void updateBorrow(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		borrowMapper.updateBorrow(paramMap);
+	}
+
+	@Override
+	public int getBorrowedNum(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return borrowMapper.getBorrowedNum(paramMap);
+	}
+
+
 }

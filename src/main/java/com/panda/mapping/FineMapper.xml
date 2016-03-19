@@ -100,4 +100,11 @@
   where 
   fine_id = #{fineId,jdbcType=VARCHAR}  
   </update>
+  
+  <select id="selectByBookType" resultMap="BaseResultMap" parameterType="java.lang.String">
+   select 
+    <include refid="Base_Column_List" />
+    from Fine
+    where book_type = #{bookType,jdbcType=VARCHAR}
+  </select>
 </mapper>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang='en'>
+<meta charset='utf-8'>
+<head>
+<title>pandaLibrary后台管理</title>
+<link rel='stylesheet' type='text/css' href='../css/bootstrap.min.css'>
+<link rel='stylesheet' type='text/css' href='../css/bootstrap-table.min.css'>
+<link rel='stylesheet' type='text/css' href='../css/style.css'>
+<link rel='stylesheet' type='text/css' href='../css/commonnav.css'>
+<link rel="shortcut icon" href="../img/icon.png">
+</head>
+<body>
+	<div class="iframe-area">
+		<table id="table" 
+					data-id-field="borrowId" 
+					data-toolbar="#toolbar"
+					data-search="true" data-show-refresh="true" data-show-toggle="true"
+					data-pagination="true" data-show-columns="true" data-height="80%"
+					data-click-to-select="true">
+			<thead>
+				<tr>
+					<th data-align="left" data-field="borrowId">借阅号</th>
+					<th data-align="left" data-field="bookId">书籍ID</th>
+					<th data-align="left" data-field="bookName" data-sortable="true">书籍名称</th>
+					<th data-align="left" data-field="userId" data-sortable="true">用户ID</th>
+					<th data-align="left" data-field="borrowDate" data-sortable="true">借阅时间</th>
+					<th data-align="left" data-field="returnDate" data-sortable="true">归还时间</th>
+					<th data-align="left" data-field="term" data-sortable="true">借期</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+
+
+	<script type='text/javascript' src="../js/jquery-1.7.2.min.js"></script>
+	<script type='text/javascript' src="../js/bootstrap.min.js"></script>
+	<script type='text/javascript' src="../js/bootstrap-table.min.js"></script>
+	<script type='text/javascript' src="../js/bootstrap-table-zh-CN.min.js"></script>
+	<script type='text/javascript' src="../js/commonnav.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var $table = $("#table");
+			
+			$.ajax({
+				type:"POST",
+				url:"../../../pandastore/borrow/getAllBorrow.do",
+			    dataType:"json",
+				success:function(json){
+					if (json.status != 'failure') {
+						var borrows = json.borrows;
+						console.log(borrows);
+						$table.bootstrapTable({data:borrows});
+					}
+					else {                                           
+						alert(json.message);
+					}
+				}
+			});
+		});
+
+	</script>
+	
+</body>
+</html>
