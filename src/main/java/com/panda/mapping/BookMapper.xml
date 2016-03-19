@@ -225,7 +225,7 @@
     where book_id = #{bookId,jdbcType=VARCHAR}
   </update>
   <select id="selectAllBook" resultMap="ShortResultMap">
-	select book.book_id as book_id,book_name ,press,surplus,count([rank]) as remain_num 
+	select book.book_id as book_id,book_name ,press,surplus,count(rank) as remain_num 
 	from 
 	Book 
 	left join 
@@ -248,7 +248,7 @@
   </update>
   
    <select id="getBookById" resultMap="ShortResultMap">
-	select book.book_id as book_id,book_name ,press,surplus,count([rank]) as remain_num 
+	select book.book_id as book_id,book_name ,press,surplus,count(rank) as remain_num 
 	from 
 	Book 
 	left join 
@@ -262,7 +262,7 @@
   </select>
   
    <select id="getBookByName" resultMap="ShortResultMap">
-	select book.book_id as book_id,book_name ,press,surplus,count([rank]) as remain_num 
+	select book.book_id as book_id,book_name ,press,surplus,count(rank) as remain_num 
 	from 
 	Book 
 	left join 
@@ -276,7 +276,7 @@
   </select>
   
    <select id="getBookByPress" resultMap="ShortResultMap">
-	select book.book_id as book_id,book_name ,press,surplus,count([rank]) as remain_num 
+	select book.book_id as book_id,book_name ,press,surplus,count(rank) as remain_num 
 	from 
 	Book 
 	left join 
